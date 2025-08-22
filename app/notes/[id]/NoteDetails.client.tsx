@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { fetchNoteById } from '@/lib/api';
-import css from './NoteDetails.module.css';
+import css from '../NoteDetails/NoteDetails.module.css';
 
 export default function NoteDetailsClient({ id }: { id: string }) {
   const {
