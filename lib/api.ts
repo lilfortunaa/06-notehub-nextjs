@@ -33,7 +33,11 @@ export const fetchNotes = async ({
   const res: AxiosResponse<FetchNotesResponse> = await api.get('/notes', {
     params: { page, perPage, search },
   });
-  return res.data;
+  return {
+    ...res.data,
+    page,
+    perPage,
+  };
 };
 
 export interface CreateNoteDto {

@@ -2,18 +2,25 @@ import { createPortal } from 'react-dom';
 import { useEffect } from 'react';
 import css from './Modal.module.css';
 
-interface Modalprops {
+interface ModalProps {
   children: React.ReactNode;
   onClose: () => void;
 }
 
-export default function Modal({ children, onClose }: Modalprops) {
+export default function Modal({ children, onClose }: ModalProps) {
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+      document.body.style.overflow = originalOverflow;
+    };
   }, [onClose]);
 
   return createPortal(
